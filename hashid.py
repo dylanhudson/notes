@@ -11,11 +11,13 @@ Created on Fri Oct 18 21:46:49 2019
 extract-hashes.py: Extracts hashes from a text file.
 Version 0.3 - Nov/2014
 Author: Daniel Marques (@0xc0da)
-Modified by Dylan in Nov 2019 to incorporate more regexs. 
 daniel _at_ codalabs _dot_ net - http://codalabs.net
-The script reads a file and tries to extract hashes from it by using regex. 
+Modified by Dylan in Nov 2019 to incorporate more regexs. 
+
+The script reads a file and tries to extract hashes from it using regex. 
+
 Results are stored in separate files named as 'format-original_filename.txt'.
-Supported formats and regex can be found in the 'regex_list' dictionary.
+
 WARNING: Use carefully. It might return garbage or miss some hashes.
 """
 
@@ -25,20 +27,12 @@ import sys
 from os import path
 
 def extract_hashes(source_file):
+	# TODO - modify so all possibilities are printed, not just the first match. 
 	regex_list = {
-	
-		'wordpress_md5': '\$P\$[\w\d./]+',
-		'phpBB3_md5': '\$H\$[\w\d./]+',
-		'sha1':  '(?<!\w)[a-f\d]{40}(?!\w)',
-		'md5':  '(?<!\w)[a-f\d]{32}(?!\w)',
-		'sha256':  '(?<!\w)[a-f\d]{64}(?!\w)',
-		'sha512':  '(?<!\w)[a-f\d]{128}(?!\w)',
-		'mysql':  '(?<!\w)[a-f\d]{16}(?!\w)',
-		'mysql5': '\*[A-F\d]{40}',
-        'CRC-16' : '^[a-f0-9]{4}$',
-        'CRC-16-CCITT' : '^[a-f0-9]{4}$',
-        'FCS-16' : '^[a-f0-9]{4}$',
-        'Adler-32' : '^[a-f0-9]{8}$',
+         'CRC-16' : '^[a-f0-9]{4}$',
+         'CRC-16-CCITT' : '^[a-f0-9]{4}$',
+         'FCS-16' : '^[a-f0-9]{4}$',
+         'Adler-32' : '^[a-f0-9]{8}$',
          'CRC-32B' : '^[a-f0-9]{8}$',
          'FCS-32' : '^[a-f0-9]{8}$',
          'GHash-32-3' : '^[a-f0-9]{8}$',
